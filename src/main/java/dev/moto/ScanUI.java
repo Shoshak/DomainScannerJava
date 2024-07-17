@@ -27,14 +27,7 @@ public class ScanUI extends JFrame {
             JFileChooser fileChooser = new JFileChooser();
             int response = fileChooser.showOpenDialog(null);
             if (response != JFileChooser.APPROVE_OPTION) return;
-            String pathToDomains = fileChooser.getSelectedFile().getAbsolutePath();
-            try {
-                List<String> domains = Files.readAllLines(Path.of(pathToDomains));
-                scanner.setDomains(domains);
-                domainPath.setText(pathToDomains);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+            domainPath.setText(fileChooser.getSelectedFile().getAbsolutePath());
         });
         scanButton.addActionListener(e -> {
             String name = siteName.getText();
@@ -42,16 +35,17 @@ public class ScanUI extends JFrame {
                 showError("Invalid site name");
                 return;
             }
-            scanner.setSiteName(name);
             String domainsPath = domainPath.getText();
             if (domainsPath.isEmpty()) {
                 showError("Domains not set");
                 return;
             }
             model.clear();
+
             try {
-                scanner.scan();
-            } catch (URISyntaxException ex) {
+                List<String> domains = Files.readAllLines(Path.of(domainPath.getText()));
+                scanner.scan(domains, name);
+            } catch (URISyntaxException | IOException ex) {
                 throw new RuntimeException(ex);
             }
         });

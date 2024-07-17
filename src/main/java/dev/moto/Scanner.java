@@ -11,8 +11,6 @@ import java.util.List;
 
 public class Scanner {
     private final HttpClient client;
-    private List<String> domains;
-    private String siteName;
     private final DefaultListModel<String> model;
 
     public Scanner(DefaultListModel<String> model) {
@@ -25,7 +23,7 @@ public class Scanner {
         this.model = model;
     }
 
-    public void scan() throws URISyntaxException {
+    public void scan(List<String> domains, String siteName) throws URISyntaxException {
         for (String domain : domains) {
             String link = String.format("http://%s.%s", siteName, domain);
             HttpRequest request = HttpRequest
@@ -41,13 +39,5 @@ public class Scanner {
                         model.addElement(r.uri().toString());
                     });
         }
-    }
-
-    public void setDomains(List<String> domains) {
-        this.domains = domains;
-    }
-
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
     }
 }
