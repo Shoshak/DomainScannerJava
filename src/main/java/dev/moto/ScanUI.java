@@ -1,8 +1,6 @@
 package dev.moto;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -84,7 +82,7 @@ public class ScanUI extends JFrame {
                  UnsupportedLookAndFeelException e) {
             throw new RuntimeException(e);
         }
-        setTitle("hallo");
+        setTitle("Domain scanner");
         setSize(600, 600);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
