@@ -42,8 +42,14 @@ public class ScanUI extends JFrame {
             }
             model.clear();
 
+            List<String> domains;
             try {
-                List<String> domains = Files.readAllLines(Path.of(domainPath.getText()));
+                domains = Files.readAllLines(Path.of(domainPath.getText()));
+            } catch (IOException ignored) {
+                showError("Domain file could not be found/read");
+                return;
+            }
+            try {
                 scanner.scan(domains, name);
             } catch (URISyntaxException | IOException ex) {
                 throw new RuntimeException(ex);
