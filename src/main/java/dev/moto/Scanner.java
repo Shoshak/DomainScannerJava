@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.util.List;
 
 public class Scanner {
@@ -20,9 +21,9 @@ public class Scanner {
                 try {
                     InetAddress address = InetAddress.getByName(link);
                     if (address != null) {
-                        model.addElement(link);
+                        SwingUtilities.invokeLater(() -> model.addElement(link));
                     }
-                } catch (IOException ignored) {}
+                } catch (UnknownHostException ignored) {}
             });
         }
     }
