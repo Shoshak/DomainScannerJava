@@ -90,7 +90,7 @@ public class ScanUI extends JFrame {
 
     private void createUIComponents() {
         this.model = new DefaultListModel<>();
-        scanResult.setModel(model);
+        this.scanResult.setModel(model);
     }
 
     private void showError(String message) {

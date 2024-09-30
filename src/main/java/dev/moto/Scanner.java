@@ -5,7 +5,6 @@ import org.jsoup.Jsoup;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -23,9 +22,6 @@ public class Scanner {
             String link = siteName + "." + domain;
             Thread.ofVirtual().start(() -> {
                 try {
-                    InetAddress address = InetAddress.getByName(link);
-                    if (address == null) return;
-
                     String title = this.connection.newRequest("http://" + link).get().title();
                     if (!title.isEmpty()) {
                         SwingUtilities.invokeLater(() -> model.addElement(String.format("%s (%s)", link, title)));
